@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+lib_dir = File.expand_path("../../lib", __FILE__)
+$:<<lib_dir unless $:.include?(lib_dir)
+
+require 'smf/cli'
+
+SMF::CLI.run(ARGV)
