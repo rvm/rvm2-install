@@ -1,15 +1,12 @@
-class Smf::Cli::Welcome
+class Smf::Cli::Welcome < Smf::Cli::Plugin
   def self.handles?(*command)
+    return true if super
     command.flatten!
-    command.length == 0 || command[0].nil? || command[0] == "" || command[0] == "welcome"
+    command.length == 0 || command[0].nil? || command[0] == ""
   end
 
-  def self.help
+  def self.commands
     {"welcome" => "show welcome message"}
-  end
-
-  def initialize(rvm2plugins, *command)
-    @rvm2plugins = rvm2plugins
   end
 
   def run
