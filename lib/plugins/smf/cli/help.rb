@@ -4,14 +4,11 @@ class Smf::Cli::Help < Smf::Cli::Plugin
   end
 
   def run
-    commands = @rvm2plugins["cli"].map do |plugin|
-      [plugin.command, plugin.description]
+    plugins = @rvm2plugins["cli"]
+    max = plugins.map{|plugin| plugin.command.length }.max
+    puts "Welcome to RVM2, available commands:" ]
+    puts plugins.map do |plugin|
+      "%#{max}s | %s" % [plugin.command, plugin.description]
     end
-    max = commands.map(&:first).map(&:length).max
-    help_array = [ "Welcome to RVM2, available commands:" ]
-    help_array += commands.map do |command, desc|
-      "%#{max}s | %s" % [command, desc]
-    end
-    puts help_array
   end
 end
