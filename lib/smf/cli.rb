@@ -3,13 +3,19 @@ require "pluginator"
 module Smf
   class Cli
     class Plugin
-      def self.handles?(*command)
-        command.flatten!
-        command.length > 0 && commands.keys.include?(command[0])
+      def self.handles?(*args)
+        args.flatten!
+        args.length > 0 && args[0] == command
       end
 
-      def initialize(rvm2plugins, *command)
-        @command = command.flatten
+      def self.command
+        name = self.name.split(/::/)
+        name.shift(2)
+        name.join("/").downcase
+      end
+
+      def initialize(rvm2plugins, *args)
+        @args = args.flatten
         @rvm2plugins = rvm2plugins
       end
     end
@@ -25,10 +31,9 @@ module Smf
     end
 
     def run
-      @rvm2plugins.first_ask!("cli", :handles?, @args).new(@rvm2plugins, @args).run
-    rescue Pluginator::PluginatorError
-      @rvm2plugins.first_ask!("cli", :handles?, "help").new(@rvm2plugins, @args).run
-      return 1
+      plugin = @rvm2plugins.first_ask("cli", :handles?, @args)
+      plugin = @rvm2plugins.first_ask("cli", :handles?, "help") unless plugin
+      plugin.new(@rvm2plugins, @args).run
     end
 
   end
