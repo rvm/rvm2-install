@@ -5,4 +5,4 @@ $:<<lib_dir unless $:.include?(lib_dir)
 
 require 'smf/cli'
 
-Smf::Cli.run(ARGV)
+exit Smf::Cli.run(ARGV) || 0
