@@ -32,8 +32,13 @@ module Smf
 
     def run
       plugin = @rvm2plugins.first_ask("cli", :handles?, @args)
-      plugin = @rvm2plugins.first_ask("cli", :handles?, "help") unless plugin
-      plugin.new(@rvm2plugins, @args).run
+      if plugin
+        plugin.new(@rvm2plugins, @args).run
+      else
+        plugin = @rvm2plugins.first_ask("cli", :handles?, "help")
+        plugin.new(@rvm2plugins, @args).run
+        1
+      end
     end
 
   end

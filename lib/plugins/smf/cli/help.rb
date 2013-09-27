@@ -6,9 +6,15 @@ class Smf::Cli::Help < Smf::Cli::Plugin
   def run
     plugins = @rvm2plugins["cli"]
     max = plugins.map{|plugin| plugin.command.length }.max
-    puts "Welcome to RVM2, available commands:"
+    if @args.empty? || @args[0] == self.class.command
+      puts "Welcome to RVM2, available commands:"
+    else
+      puts "Unknown arguments: #{@args.join(" ")}"
+      puts "Available commands:"
+    end
     plugins.each do |plugin|
       puts "%#{max}s | %s" % [plugin.command, plugin.description]
     end
+    nil
   end
 end
