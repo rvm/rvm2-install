@@ -1,4 +1,4 @@
-class Smf::Cli::Welcome < Smf::Cli::Plugin
+class Rvm2::Cli::Welcome < Rvm2::Cli::Plugin
   def self.handles?(*args)
     return true if super
     args.flatten!

@@ -1,4 +1,4 @@
-class Smf::Cli::Plugin
+class Rvm2::Cli::Plugin
   def self.handles?(*args)
     args.flatten!
     args.length > 0 && args[0] == command

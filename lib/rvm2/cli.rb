@@ -1,6 +1,6 @@
 require "pluginator"
 
-module Smf
+module Rvm2
   class Cli
     def self.run(args)
       cli = new(args)
@@ -9,7 +9,7 @@ module Smf
 
     def initialize(args)
       @args = args
-      @rvm2plugins = Pluginator.find("smf", extends: %i{first_ask})
+      @rvm2plugins = Pluginator.find("rvm2", extends: %i{first_ask})
     end
 
     def run

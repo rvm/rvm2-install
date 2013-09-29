@@ -1,4 +1,4 @@
-class Smf::Cli::Help < Smf::Cli::Plugin
+class Rvm2::Cli::Help < Rvm2::Cli::Plugin
   def self.description
     "show help screen"
   end

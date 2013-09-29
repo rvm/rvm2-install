@@ -3,6 +3,6 @@
 lib_dir = File.expand_path("../../lib", __FILE__)
 $:<<lib_dir unless $:.include?(lib_dir)
 
-require 'smf/cli'
+require 'rvm2/cli'
 
-exit Smf::Cli.run(ARGV) || 0
+exit Rvm2::Cli.run(ARGV) || 0
