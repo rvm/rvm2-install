@@ -15,10 +15,8 @@ Gem::Specification.new do |spec|
   spec.description = 'SM Framework aka RVM 2'
   spec.license     = 'Apache2'
 
-  spec.add_dependency 'pluginator'
+  spec.add_dependency 'pluginator', '~>1.5.0'
 
-  #spec.add_development_dependency 'rake'
-
+  spec.executables  = Dir.glob('bin/**/*').map{|file| file.sub(/^bin\//, "") }
   spec.files        = Dir.glob('lib/**/*.rb')
-  spec.test_files   = Dir.glob('test/**/*.rb')
 end
