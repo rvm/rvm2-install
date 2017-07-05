@@ -12,9 +12,17 @@ class Rvm2::Cli::Help < Rvm2::Cli::Plugin
       puts "Unknown arguments: #{@args.join(" ")}"
       puts "Available commands:"
     end
-    plugins.each do |plugin|
-      puts "%#{max}s | %s" % [plugin.command, plugin.description]
-    end
+    plugins.sort(&method(:sort_plugins)).each { |plugin| puts format_plugin(plugin, max) }
     nil
+  end
+
+private
+
+  def sort_plugins(p1, p2)
+    p1.command <=> p2.command
+  end
+
+  def format_plugin(plugin, max)
+    "%#{max}s | %s" % [plugin.command, plugin.description]
   end
 end

@@ -16,5 +16,6 @@ Welcome to RVM2, to get some help run:
     rvm2 help
 
 MESSAGE
+    nil
   end
 end
