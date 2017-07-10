@@ -4,25 +4,25 @@ class Rvm2::Cli::Help < Rvm2::Cli::Plugin
   end
 
   def run
-    plugins = @rvm2plugins["cli"]
-    max = plugins.map{|plugin| plugin.command.length }.max
-    if @args.empty? || @args[0] == self.class.command
-      puts "Welcome to RVM2, available commands:"
-    else
-      puts "Unknown arguments: #{@args.join(" ")}"
-      puts "Available commands:"
-    end
-    plugins.sort(&method(:sort_plugins)).each { |plugin| puts format_plugin(plugin, max) }
-    nil
+    puts "Unknown arguments: #{@args.join(" ")}" unless asked_for_help?
+    list_subcommands
+    asked_for_help? ? 0 : 1
   end
 
 private
 
-  def sort_plugins(p1, p2)
-    p1.command <=> p2.command
+  def asked_for_help?
+    @args.empty? || @args[0] == self.class.command
   end
 
-  def format_plugin(plugin, max)
-    "%#{max}s | %s" % [plugin.command, plugin.description]
+  def list_subcommands
+    plugins = @rvm2plugins["cli"]
+    length  = plugins.map{|plugin| plugin.command.length }.max
+    puts "Available commands:"
+    plugins.each { |plugin| puts format_plugin(plugin, length) }
+  end
+
+  def format_plugin(plugin, length)
+    "%#{length}s | %s" % [plugin.command, plugin.description]
   end
 end
