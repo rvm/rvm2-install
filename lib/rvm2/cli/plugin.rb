@@ -5,9 +5,7 @@ class Rvm2::Cli::Plugin
   end
 
   def self.command
-    name = self.name.split(/::/)
-    name.shift(2)
-    name.join("/").downcase
+    self.name.split(/::/).last.downcase
   end
 
   def initialize(rvm2plugins, *args)
