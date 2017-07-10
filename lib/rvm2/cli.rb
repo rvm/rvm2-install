@@ -13,14 +13,11 @@ module Rvm2
     end
 
     def run
-      plugin = @rvm2plugins.first_ask("cli", :handles?, @args)
-      if plugin
-        plugin.new(@rvm2plugins, @args).run
-      else
-        plugin = @rvm2plugins.first_ask("cli", :handles?, "help")
-        plugin.new(@rvm2plugins, @args).run
-        1
-      end
+      plugin = @rvm2plugins.first_ask!("cli", :handles?, @args)
+      @args.shift
+      plugin.new(@rvm2plugins, @args).run
+    rescue Pluginator::MissingPlugin
+      @rvm2plugins.first_ask("cli", :handles?, "help").new(@rvm2plugins, @args).run
     end
   end
 end
